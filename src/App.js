@@ -1,24 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import { StyledApp, StyledAppTitle } from "./styled";
+
+import { Timer } from "./components/timer/Timer";
+import { NewTimerForm } from "./components/newTimerForm/NewTimerForm";
+import { useSelector } from "react-redux";
+import { timersSelector } from "./store/selectors";
 
 function App() {
+  const timers = useSelector(timersSelector);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <StyledApp>
+      <StyledAppTitle>tracker</StyledAppTitle>
+
+      <NewTimerForm />
+
+      {timers.map((timer) => (
+        <Timer key={timer.id} timer={timer} />
+      ))}
+    </StyledApp>
   );
 }
 
